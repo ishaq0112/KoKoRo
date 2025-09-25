@@ -83,7 +83,7 @@ const Tools = () => {
         </div>
 
         <Tabs defaultValue="stress" className="max-w-4xl mx-auto">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-2 mb-8">
             <TabsTrigger value="stress">Stress Check</TabsTrigger>
             <TabsTrigger value="gratitude">Gratitude Journal</TabsTrigger>
             <TabsTrigger value="breathing">Breathing Patterns</TabsTrigger>

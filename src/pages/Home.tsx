@@ -57,13 +57,13 @@ const Home = () => {
             <div className="flex justify-center mb-6">
               <Heart className="h-16 w-16 text-primary animate-gentle-pulse" />
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
               KoKoRo
             </h1>
-            <p className="text-2xl md:text-3xl text-muted-foreground mb-4 font-light">
+            <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-4 font-light">
               Mental Health Awareness
             </p>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed px-4">
               Your peaceful companion for mindfulness, emotional wellness, and mental health awareness. 
               Take small steps toward a calmer, more balanced you.
             </p>

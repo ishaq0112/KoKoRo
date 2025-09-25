@@ -148,7 +148,7 @@ const FocusTimer = () => {
             <TabsContent value="timer">
               <Card className="calm-card p-8 text-center">
                 {/* Mode Selector */}
-                <div className="flex justify-center gap-2 mb-8">
+                <div className="flex flex-col sm:flex-row justify-center gap-2 mb-8">
                   <Button
                     variant={mode === "work" ? "default" : "outline"}
                     onClick={() => switchMode("work")}
@@ -192,7 +192,7 @@ const FocusTimer = () => {
                   </div>
                   <Progress value={progress} className="w-full max-w-lg mx-auto mb-6 h-3" />
                   
-                  <div className="flex gap-4 justify-center mb-6">
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
                     <Button
                       onClick={toggleTimer}
                       size="lg"

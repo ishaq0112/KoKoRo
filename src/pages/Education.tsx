@@ -182,7 +182,7 @@ const Education = () => {
         </div>
 
         <Tabs defaultValue="tips" className="max-w-6xl mx-auto">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-2 mb-8">
             <TabsTrigger value="tips">Daily Tips</TabsTrigger>
             <TabsTrigger value="coping">Coping Strategies</TabsTrigger>
             <TabsTrigger value="checklist">Self-Care</TabsTrigger>

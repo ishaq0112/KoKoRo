@@ -89,7 +89,7 @@ const Mindfulness = () => {
         </div>
 
         <Tabs defaultValue="meditation" className="max-w-4xl mx-auto">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-2 mb-8">
             <TabsTrigger value="meditation">Meditation Timer</TabsTrigger>
             <TabsTrigger value="breathing">Breathing</TabsTrigger>
             <TabsTrigger value="relaxation">Muscle Relaxation</TabsTrigger>
@@ -107,29 +107,31 @@ const Mindfulness = () => {
                 </div>
                 <Progress value={progress} className="w-full max-w-md mx-auto mb-6" />
                 
-                <div className="flex items-center justify-center gap-4 mb-6">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setMeditationTime(Math.max(1, meditationTime - 1))}
-                    disabled={isActive}
-                  >
-                    -
-                  </Button>
-                  <span className="text-lg font-medium w-20">
-                    {meditationTime} min
-                  </span>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setMeditationTime(meditationTime + 1)}
-                    disabled={isActive}
-                  >
-                    +
-                  </Button>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-center gap-4 mb-6">
+                  <div className="flex items-center justify-center gap-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setMeditationTime(Math.max(1, meditationTime - 1))}
+                      disabled={isActive}
+                    >
+                      -
+                    </Button>
+                    <span className="text-lg font-medium w-20">
+                      {meditationTime} min
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setMeditationTime(meditationTime + 1)}
+                      disabled={isActive}
+                    >
+                      +
+                    </Button>
+                  </div>
                 </div>
 
-                <div className="flex gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
                     onClick={handleMeditationStart}
                     size="lg"

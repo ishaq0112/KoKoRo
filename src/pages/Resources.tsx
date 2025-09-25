@@ -174,7 +174,7 @@ const Resources = () => {
         </div>
 
         <Tabs defaultValue="crisis" className="max-w-6xl mx-auto">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mb-8">
             <TabsTrigger value="crisis">Crisis Support</TabsTrigger>
             <TabsTrigger value="professional">Professional Help</TabsTrigger>
             <TabsTrigger value="community">Community</TabsTrigger>
