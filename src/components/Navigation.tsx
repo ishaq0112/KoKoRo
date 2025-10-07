@@ -15,7 +15,6 @@ const Navigation = () => {
     { path: "/tools", label: "Tools", icon: Wrench },
     { path: "/focus", label: "Focus Timer", icon: Timer },
     { path: "/education", label: "Education", icon: BookOpen },
-    { path: "/resources", label: "Resources", icon: HeartIcon },
   ];
 
   return (

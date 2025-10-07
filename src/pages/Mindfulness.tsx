@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,12 +7,35 @@ import { Progress } from "@/components/ui/progress";
 import { Play, Pause, RotateCcw, Timer, Volume2 } from "lucide-react";
 
 const Mindfulness = () => {
+  const location = useLocation();
   const [meditationTime, setMeditationTime] = useState(5);
   const [isActive, setIsActive] = useState(false);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes default
   const [currentPhase, setCurrentPhase] = useState<"inhale" | "hold" | "exhale">("inhale");
   const [breathingActive, setBreathingActive] = useState(false);
+  const [breathingDuration, setBreathingDuration] = useState(4000); // Default 4 seconds
+  const [activeTab, setActiveTab] = useState("meditation");
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout>();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Handle navigation from Tools breathing patterns
+  useEffect(() => {
+    if (location.state?.fromBreathing) {
+      setActiveTab("breathing");
+      const pattern = location.state.pattern;
+      if (pattern) {
+        // Set breathing duration based on pattern
+        const durations: Record<string, number> = {
+          "4-7-8": 6333, // (4+7+8)/3 seconds average
+          "4-4-4": 4000,
+          "box": 4000,
+        };
+        setBreathingDuration(durations[pattern] || 4000);
+        setBreathingActive(true);
+      }
+    }
+  }, [location]);
 
   // Meditation timer effect
   useEffect(() => {
@@ -41,12 +65,38 @@ const Mindfulness = () => {
             default: return "inhale";
           }
         });
-      }, 4000); // 4 seconds per phase for 4-4-4 breathing
+      }, breathingDuration);
     }
     return () => {
       if (breathInterval) clearInterval(breathInterval);
     };
-  }, [breathingActive]);
+  }, [breathingActive, breathingDuration]);
+
+  const handleAudioToggle = () => {
+    if (!audioRef.current) {
+      // Create a simple soothing tone using Web Audio API
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.value = 432; // Hz - soothing frequency
+      oscillator.type = 'sine';
+      gainNode.gain.value = 0.1;
+      
+      if (!isPlayingAudio) {
+        oscillator.start();
+        setIsPlayingAudio(true);
+        // Auto stop after 5 minutes
+        setTimeout(() => {
+          oscillator.stop();
+          setIsPlayingAudio(false);
+        }, 300000);
+      }
+    }
+  };
 
   const handleMeditationStart = () => {
     if (!isActive) {
@@ -88,7 +138,7 @@ const Mindfulness = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="meditation" className="max-w-4xl mx-auto">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="max-w-4xl mx-auto">
           <TabsList className="grid w-full grid-cols-2 mb-8">
             <TabsTrigger value="meditation">Meditation Timer</TabsTrigger>
             <TabsTrigger value="breathing">Breathing</TabsTrigger>
@@ -233,9 +283,12 @@ const Mindfulness = () => {
                 </div>
 
                 <div className="text-center mt-8">
-                  <Button className="bg-gradient-to-r from-calm to-peace hover:shadow-soft">
+                  <Button 
+                    onClick={handleAudioToggle}
+                    className="bg-gradient-to-r from-calm to-peace hover:shadow-soft"
+                  >
                     <Volume2 className="h-4 w-4 mr-2" />
-                    Play Audio Guide
+                    {isPlayingAudio ? "Stop Audio" : "Play Audio"}
                   </Button>
                 </div>
               </div>

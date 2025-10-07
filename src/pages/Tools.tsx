@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,11 +9,21 @@ import { Progress } from "@/components/ui/progress";
 import { Heart, Smile, Frown, Coffee, Moon, Zap, RefreshCw } from "lucide-react";
 
 const Tools = () => {
+  const navigate = useNavigate();
   const [stressLevel, setStressLevel] = useState([5]);
   const [moodRating, setMoodRating] = useState([5]);
   const [gratitudeEntry, setGratitudeEntry] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [breathingPattern, setBreathingPattern] = useState("4-7-8");
+
+  const handleStartBreathing = () => {
+    navigate("/mindfulness", { 
+      state: { 
+        fromBreathing: true, 
+        pattern: breathingPattern 
+      } 
+    });
+  };
 
   const stressQuestions = [
     "How overwhelmed do you feel right now?",
@@ -253,7 +264,10 @@ const Tools = () => {
                 </div>
 
                 <div className="text-center">
-                  <Button className="bg-gradient-to-r from-primary to-primary-glow hover:shadow-soft">
+                  <Button 
+                    onClick={handleStartBreathing}
+                    className="bg-gradient-to-r from-primary to-primary-glow hover:shadow-soft"
+                  >
                     Start {breathingPattern.toUpperCase()} Breathing
                   </Button>
                 </div>

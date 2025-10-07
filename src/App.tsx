@@ -9,7 +9,6 @@ import Mindfulness from "./pages/Mindfulness";
 import Tools from "./pages/Tools";
 import FocusTimer from "./pages/FocusTimer";
 import Education from "./pages/Education";
-import Resources from "./pages/Resources";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,7 +26,6 @@ const App = () => (
             <Route path="/tools" element={<Tools />} />
             <Route path="/focus" element={<FocusTimer />} />
             <Route path="/education" element={<Education />} />
-            <Route path="/resources" element={<Resources />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
