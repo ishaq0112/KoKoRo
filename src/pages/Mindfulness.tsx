@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { Play, Pause, RotateCcw, Timer, Volume2 } from "lucide-react";
+import { Play, Pause, RotateCcw, Timer } from "lucide-react";
 
 const Mindfulness = () => {
   const location = useLocation();
@@ -15,9 +15,7 @@ const Mindfulness = () => {
   const [breathingActive, setBreathingActive] = useState(false);
   const [breathingDuration, setBreathingDuration] = useState(4000); // Default 4 seconds
   const [activeTab, setActiveTab] = useState("meditation");
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout>();
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Handle navigation from Tools breathing patterns
   useEffect(() => {
@@ -72,32 +70,6 @@ const Mindfulness = () => {
     };
   }, [breathingActive, breathingDuration]);
 
-  const handleAudioToggle = () => {
-    if (!audioRef.current) {
-      // Create a simple soothing tone using Web Audio API
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      
-      oscillator.frequency.value = 432; // Hz - soothing frequency
-      oscillator.type = 'sine';
-      gainNode.gain.value = 0.1;
-      
-      if (!isPlayingAudio) {
-        oscillator.start();
-        setIsPlayingAudio(true);
-        // Auto stop after 5 minutes
-        setTimeout(() => {
-          oscillator.stop();
-          setIsPlayingAudio(false);
-        }, 300000);
-      }
-    }
-  };
-
   const handleMeditationStart = () => {
     if (!isActive) {
       setTimeLeft(meditationTime * 60);
@@ -139,7 +111,7 @@ const Mindfulness = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="max-w-4xl mx-auto">
-          <TabsList className="grid w-full grid-cols-2 mb-8">
+          <TabsList className="grid w-full grid-cols-4 mb-8">
             <TabsTrigger value="meditation">Meditation Timer</TabsTrigger>
             <TabsTrigger value="breathing">Breathing</TabsTrigger>
             <TabsTrigger value="relaxation">Muscle Relaxation</TabsTrigger>
@@ -280,16 +252,6 @@ const Mindfulness = () => {
                       <p className="text-foreground pt-1">{step}</p>
                     </div>
                   ))}
-                </div>
-
-                <div className="text-center mt-8">
-                  <Button 
-                    onClick={handleAudioToggle}
-                    className="bg-gradient-to-r from-calm to-peace hover:shadow-soft"
-                  >
-                    <Volume2 className="h-4 w-4 mr-2" />
-                    {isPlayingAudio ? "Stop Audio" : "Play Audio"}
-                  </Button>
                 </div>
               </div>
             </Card>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Heart, Brain, Wrench, Timer, BookOpen, HeartHandshake } from "lucide-react";
+import { Heart, Brain, Wrench, Timer, BookOpen } from "lucide-react";
 
 const Home = () => {
   const features = [
@@ -32,13 +32,6 @@ const Home = () => {
       description: "Mental health tips, coping strategies, and wellness guides",
       link: "/education",
       color: "from-harmony to-serenity"
-    },
-    {
-      icon: HeartHandshake,
-      title: "Resources & Support",
-      description: "Crisis support, professional help, and community resources",
-      link: "/resources",
-      color: "from-secondary to-accent"
     }
   ];
 
